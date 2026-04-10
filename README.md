@@ -50,6 +50,37 @@ A comprehensive JavaFX desktop application for managing academic institutions wi
 
 ## 📁 Project Structure
 
+GPAMaster3.1/
+├── pom.xml # Maven configuration
+├── README.md # This file
+├── Frontend/
+│ ├── MainApp.java # Application entry point
+│ ├── css/
+│ │ └── app.css # Global styles
+│ ├── fxml/
+│ │ ├── login.fxml
+│ │ ├── admin-dashboard.fxml
+│ │ ├── teacher-dashboard.fxml
+│ │ └── student-dashboard.fxml
+│ └── controllers/
+│ ├── LoginController.java
+│ ├── AdminDashboardController.java
+│ ├── TeacherDashboardController.java
+│ └── StudentDashboardController.java
+└── Backend/
+├── User.java
+├── Admin.java
+├── Teacher.java
+├── Student.java
+├── Course.java
+├── Enrollment.java
+├── GPA.java
+├── AdminControl.java
+├── TeacherControl.java
+├── StudentControl.java
+├── CourseControl.java
+└── FileUpdate.java
+
 ## 💻 Installation & Setup
 
 ### Prerequisites
