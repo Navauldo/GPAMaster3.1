@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Frontend.controllers.TeacherDashboardController"
+            styleClass="dashboard-root">
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="2">
+                <Label text="GPA Master" styleClass="sidebar-app-name"/>
+                <Label text="Teacher Panel" styleClass="sidebar-role-badge"/>
+            </VBox>
+            <VBox spacing="4" styleClass="sidebar-nav" VBox.vgrow="ALWAYS">
+                <Button fx:id="navMyStudents" text="My Students"    styleClass="nav-btn, nav-btn-active" maxWidth="Infinity" onAction="#showStudentsView"/>
+                <Button fx:id="navGrades"     text="Input Grades"   styleClass="nav-btn" maxWidth="Infinity" onAction="#showGradesView"/>
+                <Button fx:id="navAcademic"   text="Academic Info"  styleClass="nav-btn" maxWidth="Infinity" onAction="#showAcademicView"/>
+            </VBox>
+            <VBox styleClass="sidebar-footer" spacing="8">
+                <Label fx:id="teacherNameLabel" text="Teacher" styleClass="sidebar-user"/>
+                <ComboBox fx:id="themePicker" styleClass="theme-picker" maxWidth="Infinity"/>
+                <Button text="Log Out" styleClass="logout-btn" maxWidth="Infinity" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="main-content" spacing="0">
+            <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="pageTitle" text="My Students" styleClass="page-title"/>
+            </HBox>
+            <HBox styleClass="stat-bar" spacing="12" alignment="CENTER_LEFT">
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="My Students" styleClass="stat-label"/>
+                    <Label fx:id="statStudents" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Courses Teaching" styleClass="stat-label"/>
+                    <Label fx:id="statCourses" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Grades Recorded" styleClass="stat-label"/>
+                    <Label fx:id="statGrades" text="0" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="hidden-tabs" VBox.vgrow="ALWAYS">
+                <Tab fx:id="studentsTab" text="My Students">
+                    <VBox spacing="12" styleClass="tab-body">
+                        <TableView fx:id="studentTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colId"     text="ID"     prefWidth="80"/>
+                                <TableColumn fx:id="colName"   text="Name"   prefWidth="180"/>
+                                <TableColumn fx:id="colCourse" text="Course" prefWidth="240"/>
+                                <TableColumn fx:id="colGrade"  text="Grade"  prefWidth="100"/>
+                            </columns>
+                            <placeholder><Label text="No students assigned yet." styleClass="table-placeholder"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="gradesTab" text="Input Grade">
+                    <VBox spacing="20" styleClass="tab-body" alignment="TOP_LEFT">
+                        <Label text="Enter a grade for a student in one of your courses." styleClass="form-hint" wrapText="true"/>
+                        <GridPane hgap="12" vgap="14">
+                            <Label text="Student ID:"       GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="gradeStudId" promptText="e.g. 201"   GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                            <Label text="Course Code:"      GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <TextField fx:id="gradeCode"   promptText="e.g. COMP1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="New Grade (0-100):" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label"/>
+                            <TextField fx:id="gradeValue"  promptText="e.g. 85"    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        </GridPane>
+                        <Label fx:id="gradeMsg" text="" styleClass="success-label" managed="false" visible="false"/>
+                        <Button text="Submit Grade" styleClass="btn-primary" onAction="#handleSubmitGrade"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="academicTab" text="Academic Info">
+                    <VBox spacing="20" styleClass="tab-body" alignment="TOP_LEFT">
+                        <Label text="Look up the GPA, honours, and graduation status for one of your students." styleClass="form-hint" wrapText="true"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Student ID:" styleClass="field-label"/>
+                            <TextField fx:id="academicStudId" promptText="e.g. 201" prefWidth="160"/>
+                            <Button text="Look Up" styleClass="btn-primary" onAction="#handleLookupAcademic"/>
+                        </HBox>
+                        <Label fx:id="academicMsg" text="" styleClass="success-label" managed="false" visible="false"/>
+                        <GridPane hgap="16" vgap="12">
+                            <Label text="Student:"            GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <Label fx:id="academicName"   text="—" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="GPA:"                GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <Label fx:id="academicGPA"    text="—" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="stat-value"/>
+                            <Label text="Academic Honours:"   GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label"/>
+                            <Label fx:id="academicHonours" text="—" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <Label text="Graduation Status:"  GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="field-label"/>
+                            <Label fx:id="academicStatus"  text="—" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        </GridPane>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>

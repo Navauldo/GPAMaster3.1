@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Frontend.controllers.StudentDashboardController"
+            styleClass="dashboard-root">
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="2">
+                <Label text="GPA Master" styleClass="sidebar-app-name"/>
+                <Label text="Student Portal" styleClass="sidebar-role-badge"/>
+            </VBox>
+            <VBox spacing="4" styleClass="sidebar-nav" VBox.vgrow="ALWAYS">
+                <Button fx:id="navGrades" text="My Grades"      styleClass="nav-btn, nav-btn-active" maxWidth="Infinity" onAction="#showGradesView"/>
+                <Button fx:id="navGPA"    text="GPA and Status" styleClass="nav-btn" maxWidth="Infinity" onAction="#showGPAView"/>
+            </VBox>
+            <VBox styleClass="sidebar-footer" spacing="8">
+                <Label fx:id="studentNameLabel" text="Student" styleClass="sidebar-user"/>
+                <Label fx:id="studentIdLabel"   text="ID: —"   styleClass="sidebar-user-sub"/>
+                <ComboBox fx:id="themePicker" styleClass="theme-picker" maxWidth="Infinity"/>
+                <Button text="Log Out" styleClass="logout-btn" maxWidth="Infinity" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="main-content" spacing="0">
+            <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="pageTitle" text="My Grades" styleClass="page-title"/>
+            </HBox>
+            <HBox styleClass="stat-bar" spacing="12" alignment="CENTER_LEFT">
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Cumulative GPA" styleClass="stat-label"/>
+                    <Label fx:id="gpaValue" text="—" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Courses Taken" styleClass="stat-label"/>
+                    <Label fx:id="courseCount" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Academic Standing" styleClass="stat-label"/>
+                    <Label fx:id="standingLabel" text="—" styleClass="stat-value-sm"/>
+                </VBox>
+            </HBox>
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="hidden-tabs" VBox.vgrow="ALWAYS">
+                <Tab fx:id="gradesTab" text="Grades">
+                    <VBox spacing="12" styleClass="tab-body">
+                        <TableView fx:id="gradesTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colCode"   text="Course Code" prefWidth="160"/>
+                                <TableColumn fx:id="colCName"  text="Course Name" prefWidth="280"/>
+                                <TableColumn fx:id="colGrade"  text="Grade"       prefWidth="100"/>
+                                <TableColumn fx:id="colLetter" text="Letter"      prefWidth="100"/>
+                            </columns>
+                            <placeholder><Label text="No courses enrolled yet." styleClass="table-placeholder"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="gpaTab" text="GPA">
+                    <VBox spacing="20" styleClass="tab-body" alignment="TOP_LEFT">
+                        <Label text="Your full academic summary." styleClass="form-hint"/>
+                        <GridPane hgap="16" vgap="14">
+                            <Label text="GPA (4-point scale):"   GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <Label fx:id="gpaDetailed"       text="—" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="stat-value"/>
+                            <Label text="Academic Honours:"       GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <Label fx:id="academicHonours"   text="—" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="Graduation Status:"      GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label"/>
+                            <Label fx:id="graduationStatus"  text="—" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        </GridPane>
+                        <Label text="Scale: 90+=4.3  80+=4.0  75+=3.7  70+=3.3  65+=3.0  60+=2.7  55+=2.3  50+=2.0  40+=1.0  Below 40=0.0" styleClass="form-hint" wrapText="true"/>
+                        <Label text="Honours: 3.6+ = First Class  |  3.0+ = Second Class  |  2.0+ = Pass" styleClass="form-hint" wrapText="true"/>
+                        <Label text="Graduation requires GPA of 2.0 or above." styleClass="form-hint" wrapText="true"/>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>

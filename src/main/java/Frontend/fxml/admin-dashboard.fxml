@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Frontend.controllers.AdminDashboardController"
+            styleClass="dashboard-root">
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="2">
+                <Label text="GPA Master" styleClass="sidebar-app-name"/>
+                <Label text="Admin Panel" styleClass="sidebar-role-badge"/>
+            </VBox>
+            <VBox spacing="4" styleClass="sidebar-nav" VBox.vgrow="ALWAYS">
+                <Button fx:id="navStudents" text="Students"      styleClass="nav-btn, nav-btn-active" maxWidth="Infinity" onAction="#showStudentsTab"/>
+                <Button fx:id="navTeachers" text="Teachers"      styleClass="nav-btn" maxWidth="Infinity" onAction="#showTeachersTab"/>
+                <Button fx:id="navCourses"  text="Courses"       styleClass="nav-btn" maxWidth="Infinity" onAction="#showCoursesTab"/>
+                <Button fx:id="navGrades"   text="Input Grades"  styleClass="nav-btn" maxWidth="Infinity" onAction="#showGradesTab"/>
+                <Button fx:id="navEnroll"   text="Enrol Student" styleClass="nav-btn" maxWidth="Infinity" onAction="#showEnrollTab"/>
+            </VBox>
+            <VBox styleClass="sidebar-footer" spacing="8">
+                <Label fx:id="adminNameLabel" text="Admin" styleClass="sidebar-user"/>
+                <ComboBox fx:id="themePicker" styleClass="theme-picker" maxWidth="Infinity"/>
+                <Button text="Log Out" styleClass="logout-btn" maxWidth="Infinity" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="main-content" spacing="0">
+            <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="pageTitle" text="Students" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="addBtn" text="+ Add New" styleClass="btn-primary" onAction="#handleAdd"/>
+            </HBox>
+            <HBox styleClass="stat-bar" spacing="12" alignment="CENTER_LEFT">
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Total Students" styleClass="stat-label"/>
+                    <Label fx:id="statStudents" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Total Teachers" styleClass="stat-label"/>
+                    <Label fx:id="statTeachers" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Total Courses" styleClass="stat-label"/>
+                    <Label fx:id="statCourses" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card" spacing="4">
+                    <Label text="Enrollments" styleClass="stat-label"/>
+                    <Label fx:id="statEnrollments" text="0" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="hidden-tabs" VBox.vgrow="ALWAYS">
+                <Tab fx:id="studentsTab" text="Students">
+                    <VBox spacing="12" styleClass="tab-body">
+                        <TextField fx:id="studentSearch" promptText="Search by name or ID" styleClass="search-field" onKeyReleased="#filterStudents"/>
+                        <TableView fx:id="studentTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colStudId"   text="ID"      prefWidth="70"/>
+                                <TableColumn fx:id="colStudName" text="Name"    prefWidth="180"/>
+                                <TableColumn fx:id="colStudEnr"  text="Courses" prefWidth="200"/>
+                                <TableColumn fx:id="colStudGPA"  text="GPA"     prefWidth="80"/>
+                                <TableColumn fx:id="colStudAct"  text="Actions" prefWidth="160"/>
+                            </columns>
+                            <placeholder><Label text="No students found." styleClass="table-placeholder"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="teachersTab" text="Teachers">
+                    <VBox spacing="12" styleClass="tab-body">
+                        <TextField fx:id="teacherSearch" promptText="Search by name or ID" styleClass="search-field" onKeyReleased="#filterTeachers"/>
+                        <TableView fx:id="teacherTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colTeachId"      text="ID"      prefWidth="70"/>
+                                <TableColumn fx:id="colTeachName"    text="Name"    prefWidth="200"/>
+                                <TableColumn fx:id="colTeachCourses" text="Courses" prefWidth="280"/>
+                                <TableColumn fx:id="colTeachAct"     text="Actions" prefWidth="160"/>
+                            </columns>
+                            <placeholder><Label text="No teachers found." styleClass="table-placeholder"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="coursesTab" text="Courses">
+                    <VBox spacing="12" styleClass="tab-body">
+                        <TextField fx:id="courseSearch" promptText="Search by code or name" styleClass="search-field" onKeyReleased="#filterCourses"/>
+                        <TableView fx:id="courseTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colCourseCode" text="Code"     prefWidth="100"/>
+                                <TableColumn fx:id="colCourseName" text="Name"     prefWidth="260"/>
+                                <TableColumn fx:id="colCourseEnr"  text="Students" prefWidth="90"/>
+                                <TableColumn fx:id="colCourseAct"  text="Actions"  prefWidth="160"/>
+                            </columns>
+                            <placeholder><Label text="No courses found." styleClass="table-placeholder"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="gradesTab" text="Grades">
+                    <VBox spacing="20" styleClass="tab-body" alignment="TOP_LEFT">
+                        <Label text="Input or update a grade for any enrolled student." styleClass="form-hint" wrapText="true"/>
+                        <GridPane hgap="12" vgap="14">
+                            <Label text="Student ID:"       GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="gradeStudId" promptText="e.g. 201"   GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                            <Label text="Course Code:"      GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <TextField fx:id="gradeCode"   promptText="e.g. COMP1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            <Label text="New Grade (0-100):" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label"/>
+                            <TextField fx:id="gradeValue"  promptText="e.g. 85"    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        </GridPane>
+                        <Label fx:id="adminGradeMsg" text="" styleClass="success-label" managed="false" visible="false"/>
+                        <Button text="Submit Grade" styleClass="btn-primary" onAction="#handleAdminGrade"/>
+                        <Separator/>
+                        <Label text="Save or load all system data." styleClass="form-hint" wrapText="true"/>
+                        <HBox spacing="10">
+                            <Button text="Save System" styleClass="btn-primary" onAction="#handleSave"/>
+                            <Button text="Load System" styleClass="btn-primary" onAction="#handleLoad"/>
+                        </HBox>
+                        <Label fx:id="saveLoadMsg" text="" styleClass="success-label" managed="false" visible="false"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="enrollTab" text="Enrol">
+                    <VBox spacing="20" styleClass="tab-body" alignment="TOP_LEFT">
+                        <Label text="Enrol a student in a course. The student must exist and not already be enrolled." styleClass="form-hint" wrapText="true"/>
+                        <GridPane hgap="12" vgap="14">
+                            <Label text="Student ID:"         GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="enrollStudId"   promptText="e.g. 201"   GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                            <Label text="Course Code:"         GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <TextField fx:id="enrollCourseCode" promptText="e.g. COMP1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        </GridPane>
+                        <Label fx:id="enrollMsg" text="" styleClass="success-label" managed="false" visible="false"/>
+                        <Button text="Enrol Student" styleClass="btn-primary" onAction="#handleEnroll"/>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>

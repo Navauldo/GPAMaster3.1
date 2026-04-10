@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Frontend.controllers.LoginController"
+           styleClass="login-root">
+    <HBox>
+        <VBox styleClass="login-brand-c" prefWidth="440" spacing="0">
+            <VBox spacing="6" styleClass="login-brand-top">
+                <Label text="GPA Master" styleClass="brand-title-c"/>
+                <Label text="Academic Management System" styleClass="brand-sub-c"/>
+            </VBox>
+            <VBox spacing="12" styleClass="login-features">
+                <Label text="Everything you need to manage academics" styleClass="features-heading"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" styleClass="feature-dot"/>
+                    <Label text="Manage student records and enrolments" styleClass="feature-text"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" styleClass="feature-dot"/>
+                    <Label text="Track grades and calculate GPA" styleClass="feature-text"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" styleClass="feature-dot"/>
+                    <Label text="Role-based access for Admin, Teacher and Student" styleClass="feature-text"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="●" styleClass="feature-dot"/>
+                    <Label text="Full course and teacher management" styleClass="feature-text"/>
+                </HBox>
+            </VBox>
+            <VBox VBox.vgrow="ALWAYS"/>
+            <Label text="COMP2171 — Group Three" styleClass="brand-footer-c"/>
+        </VBox>
+        <VBox styleClass="login-form-panel-c" alignment="CENTER" HBox.hgrow="ALWAYS" spacing="0">
+            <VBox spacing="24" maxWidth="360" alignment="CENTER_LEFT">
+                <VBox spacing="4">
+                    <Label text="Welcome back" styleClass="form-heading"/>
+                    <Label text="Select your role and sign in" styleClass="form-subheading"/>
+                </VBox>
+                <VBox spacing="8">
+                    <Label text="I am a" styleClass="field-label"/>
+                    <HBox spacing="8">
+                        <Button fx:id="roleAdmin"   text="Admin"   styleClass="role-btn, role-btn-active" onAction="#selectAdmin"/>
+                        <Button fx:id="roleTeacher" text="Teacher" styleClass="role-btn" onAction="#selectTeacher"/>
+                        <Button fx:id="roleStudent" text="Student" styleClass="role-btn" onAction="#selectStudent"/>
+                    </HBox>
+                </VBox>
+                <VBox spacing="14">
+                    <VBox spacing="6">
+                        <Label text="User ID" styleClass="field-label"/>
+                        <TextField fx:id="idField" promptText="Enter your ID" styleClass="login-field-c"/>
+                    </VBox>
+                    <VBox spacing="6">
+                        <Label text="Password" styleClass="field-label"/>
+                        <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="login-field-c"/>
+                    </VBox>
+                    <Label fx:id="hintLabel" text="Demo: ID 1 / admin123" styleClass="hint-label"/>
+                    <Label fx:id="errorLabel" text="" styleClass="error-label" managed="false" visible="false"/>
+                    <Button fx:id="loginBtn" text="Sign In" styleClass="login-btn-c"
+                            onAction="#handleLogin" maxWidth="Infinity" defaultButton="true"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </HBox>
+</StackPane>
