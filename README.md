@@ -65,3 +65,4 @@ git clone https://github.com/Navauldo/GPAMaster3.1.git
 cd GPAMaster3.1
 
 
+mvn clean compile
