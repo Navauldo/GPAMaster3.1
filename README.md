@@ -10,10 +10,7 @@ A comprehensive JavaFX desktop application for managing academic institutions wi
 - [Running the Application](#running-the-application)
 - [Default Login Credentials](#default-login-credentials)
 - [User Roles & Capabilities](#user-roles--capabilities)
-- [Screenshots](#screenshots)
 - [Group Members](#group-members)
-- [License](#license)
-
 ## ✨ Features
 
 ### For All Users
@@ -52,3 +49,17 @@ A comprehensive JavaFX desktop application for managing academic institutions wi
 - **Data Persistence**: Custom file-based serialization (.txt)
 
 ## 📁 Project Structure
+
+## 💻 Installation & Setup
+
+### Prerequisites
+- Java 23 or higher
+- Maven 3.6+
+- Git
+
+### Clone the Repository
+```bash
+git clone https://github.com/Navauldo/GPAMaster3.1.git
+cd GPAMaster3.1
+
+
